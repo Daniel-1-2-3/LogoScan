@@ -6,12 +6,13 @@ export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
   const isScanPage = location.pathname === '/';
+  const isLoginPage = location.pathname === '/login';
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  if (isScanPage) {
+  if (isScanPage || isLoginPage) {
     return (
         <nav className="bg-white shadow-lg fixed w-full z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -101,6 +102,13 @@ export function Navbar() {
               Home
             </Link>
             <Link
+              to="/login"
+              className="block px-3 py-2 text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-md text-base font-medium transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Log Out
+            </Link>
+            <Link
               to="/camera"
               className="bg-green-600 text-white hover:bg-green-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
             >
@@ -149,6 +157,13 @@ export function Navbar() {
               onClick={() => setIsMenuOpen(false)}
             >
               Home
+            </Link>
+            <Link
+              to="/login"
+              className="block px-3 py-2 text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-md text-base font-medium transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Log Out
             </Link>
             <Link
               to="/camera"
