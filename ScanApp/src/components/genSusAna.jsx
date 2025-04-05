@@ -49,7 +49,8 @@ async function genSusAna(brandName, user) {
   try {
     const prompt = `
       Please generate a sustainability analysis for the brand ${brandName}.
-      Include specific sustainability initiatives, areas for improvement, and any environmental challenges the brand is facing.
+      Give three key things the brand is doing to improve the environment, and three key things it is doing that
+      is bad for the environment. Don't give headers.
       Please put your answer in dot jots, remove all styling. No bolding or italics. 
     `;
     const prompt2 = `

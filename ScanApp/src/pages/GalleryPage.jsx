@@ -226,7 +226,11 @@ const GalleryPage = () => {
                         <p>
                             <span className="font-semibold">Score:</span> {score}/10
                         </p>
-                        <p>{description}</p>
+                        <ul className="list-disc list-inside space-y-1">
+                            {description.split(/[*]+/).map((line, i) =>
+                                line.trim() ? <li key={i}>{line.trim()}</li> : null
+                            )}
+                        </ul>
                         </div>
                     </div>
                     </div>

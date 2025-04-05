@@ -68,7 +68,7 @@ const CameraPage = () => {
     };
 
     return (
-        <div className="relative h-screen w-screen bg-white overflow-hidden">
+        <div className="relative h-screen w-screen bg-gray-400 overflow-hidden">
             <div className="absolute inset-0 z-0">
                 <Webcam
                     ref={webcamRef}
@@ -79,7 +79,7 @@ const CameraPage = () => {
                 />
             </div>
 
-            <div className="absolute bottom-0 inset-x-0 z-10 h-[150px] bg-white/20 backdrop-blur-md px-2 flex items-center justify-center">
+            <div className="absolute bottom-0 inset-x-0 z-10 h-[150px] bg-white/50 backdrop-blur-md px-2 flex items-center justify-center">
                 <div className="flex items-center justify-center w-full max-w-md">
                     <button
                         className="absolute left-[15%] text-green-800 hover:text-green-900 transition-opacity"
