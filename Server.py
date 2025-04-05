@@ -4,13 +4,13 @@ from pydantic import BaseModel
 from PIL import Image
 import numpy as np
 from io import BytesIO
-import cv2, base64, json
+import cv2, base64, json, os
 import uvicorn
 
 from ultralytics import YOLO
 
 app = FastAPI()
-model = YOLO("coco8.yaml")
+model = YOLO(os.getcwd() + "/TrainResult/weights/best.pt")
 
 # CORS Configuration
 app.add_middleware(
@@ -44,7 +44,7 @@ async def processImage(req: StringRequest):
     # Decode base64 image
     image_data = base64.b64decode(req.content)
     image = Image.open(BytesIO(image_data)).convert("RGB")
-    img_array = np.fliplr(np.array(image))
+    img_array = np.array(image)
 
     # Run YOLOv8 inference
     results = model(img_array)[0]
@@ -61,7 +61,7 @@ async def processImage(req: StringRequest):
             box = boxes.xyxy[i].cpu().numpy().astype(int)
             cls = int(boxes.cls[i])
             label = model.names[cls]
-            color = (0, 255, 0) if i == best_idx else (0, 0, 255)  # green if best, red otherwise
+            color = (0, 255, 0) if i == best_idx else (150, 0, 0)  # green if best, red otherwise
 
             # Draw rectangle
             cv2.rectangle(annotated, box[:2], box[2:], color, 2)
