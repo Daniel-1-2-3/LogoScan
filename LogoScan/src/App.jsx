@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
-import CameraPage from "./CameraPage";
-import GalleryPage from "./GalleryPage";
+import CameraPage from "./pages/CameraPage";
+import GalleryPage from "./pages/GalleryPage";
 
 function App() {
     return (
