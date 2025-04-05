@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Leaf, ArrowLeft, Camera } from 'lucide-react';
-import image from '../assets/AppIcon.png'
+import image from '../assets/AppIcon.png';
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -86,7 +86,7 @@ export function Navbar() {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link to="/" className="flex items-center space-x-2 hover:scale-110">
-              <Leaf className="h-8 w-8 text-green-600" />
+              <img src={image} alt="logo" className='w-6 h-6'/>
               <span className="text-xl font-bold text-gray-900">EcoScan</span>
             </Link>
           </div>

@@ -8,7 +8,7 @@ export function HomePage() {
       <section className="relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 pt-36">
           <div className="text-center">
-            <h1 className="text-5xl font-bold text-white mb-6">
+            <h1 className="text-4xl font-bold text-white mb-6">
               Discover the Environmental Impact of Your Favorite Brands
             </h1>
             <p className="text-xl text-gray-200 mb-8 max-w-3xl mx-auto">

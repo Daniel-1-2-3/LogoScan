@@ -117,12 +117,12 @@ async def saveImage(req: StringRequest):
 
 @app.get("/fetch_img")
 async def fetchImage():
+    global current_user
     return photo_memo[current_user]
 
 @app.get("/fetch_current_user")
-async def fetchImage():
-    global current_user
-    return current_user
+async def fetchCurrentUser():
+    return users_info[current_user]
 
 @app.delete("/delete_img")
 async def fetchImage(req: StringRequest):

@@ -50,6 +50,7 @@ async function genSusAna(brandName, user) {
     const prompt = `
       Please generate a sustainability analysis for the brand ${brandName}.
       Include specific sustainability initiatives, areas for improvement, and any environmental challenges the brand is facing.
+      Please put your answer in dot jots, remove all styling. No bolding or italics. 
     `;
     const prompt2 = `
       Please generate a sustainability score for the brand ${brandName} out of 10.
@@ -62,16 +63,23 @@ async function genSusAna(brandName, user) {
         contents: prompt,
       });
     
-    const description = response.text
+    let description = response.text
 
     const response2 = await ai.models.generateContent({
         model: "gemini-2.0-flash",
         contents: prompt2,
       });
     
-    const score = response2.text
+    let score = response2.text
+    score = score.substring(score.indexOf('\\'));
 
     await updateSustainabilityIndex(user, score);
+    console.log(user, score);
+
+    if (brandName == "Unknown") {
+        score = "N/A";
+        description = "N/A";
+    }
 
     return {
         score: score, 
