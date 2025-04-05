@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Trash2, Search, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-// import GenerateSusAna from "../components/GenerateSusAna";
+import { genSusAna } from "../components/genSusAna";
 
 const GalleryPage = () => {
     const [photos, setPhotos] = useState([]);
@@ -12,7 +12,8 @@ const GalleryPage = () => {
     const [dispImage, setDispImage] = useState(null);
     const [dispBrand, setDispBrand] = useState(null);
     const [username, setUsername] = useState("username");
-    const [description, setDiscription] = useState("asdddddddddddddd");
+    const [description, setDescription] = useState("No description available");
+    const [score, setScore] = useState(null);
 
     const navigate = useNavigate();
 
@@ -93,8 +94,12 @@ const GalleryPage = () => {
     
         if (!response.ok) throw new Error("Network response was not ok");
     
-        let data = await response.json();
-        setDiscription(genSusAna(data.brand, username));
+        const data = await response.json();
+        console.log(data.brand);
+        const pack = await genSusAna(data.brand, username);
+        console.log(pack);
+        setScore(pack.score);
+        setDescription(pack.description);
         setDispBrand(data.brand);
         setDispImage("data:image/jpeg;base64," + data.image);
         setLoading(false);
@@ -165,7 +170,7 @@ const GalleryPage = () => {
 
                     <button
                         className="text-white text-sm px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition"
-                        onClick={() => navigate("/")}
+                        onClick={() => navigate("/home")}
                     >
                         Back to Camera
                     </button>
@@ -217,9 +222,8 @@ const GalleryPage = () => {
                             </div>
 
                             <div className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
-                            <p>
-                                {description}
-                            </p>
+                            <p>Score: {score}/10</p>
+                            <p>{description}</p>
                             </div>
                         </div>
                         </div>

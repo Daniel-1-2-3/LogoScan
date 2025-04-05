@@ -1,5 +1,5 @@
 import { GoogleGenAI } from "@google/genai";
-import { supabase } from "./supabase.js";
+import { supabase } from "../lib/supabase.js";
 
 const ai = new GoogleGenAI({ apiKey: "AIzaSyDcWAxigJxR6fCuZvcTUHSWS2lI37NJwJQ" });
 
@@ -73,15 +73,16 @@ async function genSusAna(brandName, user) {
 
     await updateSustainabilityIndex(user, score);
 
-    return {"score": score, "description": description};
-    
+    return {
+        score: score, 
+        description: description
+    };
+
   } catch (error) {
     console.error('Error generating sustainability analysis:', error);
     return {
-      brandName,
-      sustainabilityScore: 'N/A',
+      score: 'N/A',
       description: 'Analysis could not be generated.',
-      links: []
     };
   }
 }
