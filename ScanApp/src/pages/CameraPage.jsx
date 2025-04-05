@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Webcam from "react-webcam";
 import { useNavigate } from "react-router-dom";
 import { MdFlipCameraAndroid } from "react-icons/md";
