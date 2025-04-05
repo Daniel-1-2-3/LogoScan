@@ -126,7 +126,7 @@ export function HomePage() {
                 Start scanning products and contribute to a more sustainable future.
               </p>
               <Link
-                to="/camera"
+                to="/home"
                 className="inline-flex items-center px-8 py-4 bg-white text-green-600 rounded-lg hover:bg-green-50 transition-colors text-lg font-semibold"
               >
                 Start Scanning

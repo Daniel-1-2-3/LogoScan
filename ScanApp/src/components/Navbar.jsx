@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Leaf, ArrowLeft, Camera } from 'lucide-react';
+import image from '../assets/Icons/lightLogo.png'
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -13,19 +14,19 @@ export function Navbar() {
 
   if (isScanPage) {
     return (
-        <nav className="bg-white shadow-lg fixed w-full z-50">
+        <nav className="bg-green-600 shadow-md fixed w-full z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center">
-              <Link to="/" className="flex items-center space-x-2 hover:scale-110">
-                <Leaf className="h-8 w-8 text-green-600" />
-                <span className="text-xl font-bold text-gray-900">EcoScan</span>
+              <Link to="/" className="flex items-center hover:scale-110">
+                <img src={image} alt="logo" className='scale-20'/>
+                <span className="text-xl font-bold text-white">SustainScore</span>
               </Link>
             </div>
   
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">
-              <Link to="#about" className="text-gray-600 hover:text-green-600 px-3 py-2 text-sm font-medium transition-colors">
+              <Link to="#about" className="text-white hover:text-green-900 px-3 py-2 text-sm font-medium transition-colors">
                 About
               </Link>
               <Link
@@ -79,7 +80,7 @@ export function Navbar() {
   }
 
   return (
-    <nav className="bg-white shadow-lg fixed w-full z-50">
+    <nav className="bg-green-600 shadow-lg fixed w-full z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
@@ -91,20 +92,17 @@ export function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link to="/home" className="text-gray-600 hover:text-green-600 px-3 py-2 text-sm font-medium transition-colors">
-              Leaderboard
-            </Link>
-            <Link to="/camera" className="text-gray-600 hover:text-green-600 px-3 py-2 text-sm font-medium transition-colors">
-              Scan
-            </Link>
-            <Link to="/" className="text-gray-600 hover:text-green-600 px-3 py-2 text-sm font-medium transition-colors">
+            <Link to="/home" className="text-white hover:text-green-900 px-3 py-2 text-sm font-medium transition-colors">
               Home
             </Link>
-            <Link
-              to="/camera"
-              className="bg-green-600 text-white hover:bg-green-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
-            >
-              Get Started
+            <Link to="/GalleryPage" className="text-white hover:text-green-900 px-3 py-2 text-sm font-medium transition-colors">
+              Your Gallery
+            </Link>
+            <Link to="/camera" className="text-white hover:text-green-900 px-3 py-2 text-sm font-medium transition-colors">
+              Scan
+            </Link>
+            <Link to="/" className="text-white hover:text-green-900 px-3 py-2 text-sm font-medium transition-colors">
+              another tab name
             </Link>
           </div>
 
