@@ -38,6 +38,7 @@ export function HomePage() {
           .single();
 
         if (!error && data) {
+          console.log(data);
           setUserStats(data);
         }
       };
