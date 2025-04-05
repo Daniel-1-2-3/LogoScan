@@ -6,7 +6,7 @@ export function HomePage() {
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-green-100">
       {/* Hero Section */}
       <section className="relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 pt-36">
           <div className="text-center">
             <h1 className="text-5xl font-bold text-gray-900 mb-6">
               Discover the Environmental Impact of Your Favorite Brands
@@ -16,7 +16,7 @@ export function HomePage() {
               practices of companies through their logos or QR codes.
             </p>
             <Link
-              to="/scan"
+              to="/camera"
               className="inline-flex items-center px-8 py-4 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-lg font-semibold"
             >
               Start Scanning
@@ -182,7 +182,7 @@ export function HomePage() {
                 environmentally responsible purchasing decisions.
               </p>
               <Link
-                to="/scan"
+                to="/camera"
                 className="inline-flex items-center px-8 py-4 bg-white text-green-600 rounded-lg hover:bg-green-50 transition-colors text-lg font-semibold"
               >
                 Try EcoScan Now
