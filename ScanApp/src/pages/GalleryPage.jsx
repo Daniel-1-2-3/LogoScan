@@ -11,7 +11,7 @@ const GalleryPage = () => {
     const [loading, setLoading] = useState(false);
     const [dispImage, setDispImage] = useState(null);
     const [dispBrand, setDispBrand] = useState(null);
-    const [username, setUsername] = useState("username");
+    const [userId, setUserId] = useState("userId");
     const [description, setDescription] = useState("No description available");
     const [score, setScore] = useState(null);
 
@@ -36,7 +36,8 @@ const GalleryPage = () => {
             const res = await fetch("http://localhost:3500/fetch_current_user");
             if (!res.ok) throw new Error("Failed to fetch user info");
             const data = await res.json();
-            setUsername(data);
+            console.log(data);
+            setUserId(data.id);
 
         } catch (err) {
             console.error("Error fetching photos:", err);
@@ -96,8 +97,7 @@ const GalleryPage = () => {
     
         const data = await response.json();
         console.log(data.brand);
-        const pack = await genSusAna(data.brand, username);
-        console.log(pack);
+        const pack = await genSusAna(data.brand, userId);
         setScore(pack.score);
         setDescription(pack.description);
         setDispBrand(data.brand);
@@ -145,7 +145,7 @@ const GalleryPage = () => {
                 )}
 
                 {/* Bottom Bar */}
-                <div className="absolute bottom-0 left-0 right-0 h-20 bg-black/60 backdrop-blur-md flex items-center justify-between px-6">
+                <div className="absolute bottom-0 left-0 right-0 h-20 bg-white/70 backdrop-blur-lg flex items-center justify-between px-6">
                     <div className="flex gap-3">
                         {photos.length > 0 && (
                             <>
@@ -154,23 +154,23 @@ const GalleryPage = () => {
                                     title="Delete Photo"
                                     onClick={deleteImg}
                                 >
-                                    <Trash2 size={20} />
+                                    <Trash2 size={20} className="text-black"/>
                                 </button>
                                 <button
                                     className="text-white bg-emerald-500/50 hover:bg-emerald-500/40 px-3 py-2 rounded-lg transition flex items-center gap-2"
                                     onClick={analyzeImg}
                                     title="Analyze for Sustainability"
                                 >
-                                    <Search size={20} />
-                                    <span className="text-sm">Analyze brand</span>
+                                    <Search size={20} className="text-black"/>
+                                    <span className="text-sm text-black">Analyze brand</span>
                                 </button>
                             </>
                         )}
                     </div>
 
                     <button
-                        className="text-white text-sm px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition"
-                        onClick={() => navigate("/home")}
+                        className="text-black text-sm px-4 py-2 rounded-lg bg-black/10 hover:bg-white/20 transition"
+                        onClick={() => navigate("/camera")}
                     >
                         Back to Camera
                     </button>
@@ -179,59 +179,65 @@ const GalleryPage = () => {
             
             {/* Popup */}
             {dispImage && (
-                <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center animate-fadeIn">
-                    <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-2xl w-11/12 max-w-3xl max-h-[90vh] relative text-gray-900 dark:text-white border-2 border-zinc-700 flex flex-col">
+            <div className="fixed inset-0 bg-white/30 backdrop-blur-xl z-50 flex items-center justify-center animate-fadeIn">
+                <div className="bg-gray-300/20 rounded-xl shadow-2xl w-11/12 max-w-3xl max-h-[90vh] relative text-gray-900 border border-zinc-200 flex flex-col">
+                
+                {/* Header (fixed) */}
+                <div className="sticky top-0 z-10 rounded-t-lg bg-gray-300 px-6 pt-6 pb-4 border-b border-zinc-200 flex items-start justify-between">
+                    <h2 className="text-2xl font-semibold">Brand Analysis Result</h2>
+                    <button
+                    className="text-gray-800 hover:text-red-500 transition"
+                    onClick={() => {
+                        setDispImage(null);
+                        setDispBrand(null);
+                    }}
+                    >
+                    <X size={24} />
+                    </button>
+                </div>
+
+                {/* Scrollable content */}
+                <div className="overflow-y-auto p-6 space-y-6 bg-gray-200 rounded-b-xl">
+                    <div className="flex flex-col md:flex-row gap-6">
                     
-                    {/* Header (fixed) */}
-                    <div className="sticky top-0 z-10 bg-white dark:bg-zinc-900 px-6 pt-6 pb-4 border-b border-zinc-700 flex items-start justify-between">
-                        <h2 className="text-2xl font-semibold">Brand Analysis Result</h2>
-                        <button
-                        className="text-gray-500 hover:text-red-500 transition"
-                        onClick={() => {
-                            setDispImage(null);
-                            setDispBrand(null);
-                        }}
-                        >
-                        <X size={24} />
-                        </button>
+                    {/* Image Section */}
+                    <div className="flex-1 flex items-center justify-center">
+                        <img
+                        src={dispImage}
+                        alt="Analyzed"
+                        className="rounded-lg border border-zinc-300 max-h-[60vh] object-contain"
+                        />
                     </div>
 
-                    {/* Scrollable content */}
-                    <div className="overflow-y-auto p-6 space-y-6">
-                        <div className="flex flex-col md:flex-row gap-6">
-                        {/* Image Section */}
-                        <div className="flex-1 flex items-center justify-center">
-                            <img
-                            src={dispImage}
-                            alt="Analyzed"
-                            className="rounded-lg border border-zinc-700 max-h-[60vh] object-contain"
-                            />
+                    {/* Brand Info */}
+                    <div className="flex-1 space-y-4">
+                        <div>
+                        <p className="text-sm text-gray-500 uppercase tracking-wide">
+                            Detected Brand
+                        </p>
+                        <p className="text-lg font-medium text-gray-800">
+                            {dispBrand || (
+                            <span className="italic text-gray-500">None detected</span>
+                            )}
+                        </p>
                         </div>
 
-                        {/* Brand Info */}
-                        <div className="flex-1 space-y-4">
-                            <div>
-                            <p className="text-sm text-gray-400 uppercase tracking-wide">
-                                Detected Brand
-                            </p>
-                            <p className="text-lg font-medium">
-                                {dispBrand || (
-                                <span className="italic text-gray-400">None detected</span>
-                                )}
-                            </p>
-                            </div>
-
-                            <div className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
-                            <p>Score: {score}/10</p>
-                            <p>{description}</p>
-                            </div>
-                        </div>
+                        <div className="text-sm text-gray-700 leading-relaxed space-y-2">
+                        <p>
+                            <span className="font-semibold">Score:</span> {score}/10
+                        </p>
+                        <ul className="list-disc list-inside space-y-1">
+                            {description.split(/[*]+/).map((line, i) =>
+                                line.trim() ? <li key={i}>{line.trim()}</li> : null
+                            )}
+                        </ul>
                         </div>
                     </div>
                     </div>
                 </div>
-                )}
-
+                </div>
+            </div>
+            )}
 
             {loading && (
                 <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center">

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Leaf, ArrowLeft, Camera } from 'lucide-react';
-import image from '../assets/AppIcon.png'
+import image from '../assets/AppIcon.png';
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -15,8 +15,8 @@ export function Navbar() {
 
   if (isScanPage || isLoginPage) {
     return (
-        <nav className="bg-white shadow-lg fixed w-full z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <nav className="shadow-lg fixed w-full z-50">
+        <div className="bg-white/80 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center">
               <Link to="/" className="flex items-center space-x-2 hover:scale-110">
@@ -81,12 +81,12 @@ export function Navbar() {
   }
 
   return (
-    <nav className="bg-white shadow-lg fixed w-full z-50">
+    <nav className="bg-white/60 shadow-lg fixed w-full z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link to="/" className="flex items-center space-x-2 hover:scale-110">
-              <Leaf className="h-8 w-8 text-green-600" />
+              <img src={image} alt="logo" className='w-6 h-6'/>
               <span className="text-xl font-bold text-gray-900">EcoScan</span>
             </Link>
           </div>
