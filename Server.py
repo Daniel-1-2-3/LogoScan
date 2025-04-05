@@ -10,7 +10,7 @@ import uvicorn
 from ultralytics import YOLO
 
 app = FastAPI()
-model = YOLO(os.getcwd() + "/TrainResultV1/weights/best.pt")
+model = YOLO(os.getcwd() + "/LogoScan/TrainResultV1/weights/best.pt")
 
 # CORS Configuration
 app.add_middleware(

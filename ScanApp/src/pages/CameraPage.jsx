@@ -23,7 +23,7 @@ const CameraPage = () => {
     const saveToPhotoMemo = async (image) => {
         const base64String = image.split(",")[1];
         try {
-            const response = await fetch("http://localhost:3500/save_img", {
+            const response = await fetch("https://e570-24-51-233-5.ngrok-free.app/save_img", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -53,7 +53,7 @@ const CameraPage = () => {
         if (frame == null) return;
 
         const base64String = frame.split(",")[1];
-        const response = await fetch("http://localhost:3500/invert_image", {
+        const response = await fetch("https://e570-24-51-233-5.ngrok-free.app/invert_image", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

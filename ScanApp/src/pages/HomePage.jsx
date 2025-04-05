@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Scan, Database, TreePine, Globe, ArrowRight } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import UserStats from '../components/UserStats';
-import Leaderboard from '../components/leaderboard';
+import Leaderboard from '../components/Leaderboard';
 
 export function HomePage() {
   const navigate = useNavigate();
@@ -42,7 +42,7 @@ export function HomePage() {
         }
 
         // Send user data to be stored in python server
-        const response = await fetch("http://localhost:3500/receive_info", {
+        const response = await fetch("https://e570-24-51-233-5.ngrok-free.app/receive_info", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
