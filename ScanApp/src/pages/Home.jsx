@@ -16,7 +16,7 @@ export function HomePage() {
               practices of companies through their logos or QR codes.
             </p>
             <Link
-              to="/camera"
+              to="/login"
               className="inline-flex items-center px-8 py-4 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-lg font-semibold"
             >
               Start Scanning
@@ -182,7 +182,7 @@ export function HomePage() {
                 environmentally responsible purchasing decisions.
               </p>
               <Link
-                to="/camera"
+                to="/login"
                 className="inline-flex items-center px-8 py-4 bg-white text-green-600 rounded-lg hover:bg-green-50 transition-colors text-lg font-semibold"
               >
                 Try EcoScan Now

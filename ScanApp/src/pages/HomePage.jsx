@@ -38,9 +38,22 @@ export function HomePage() {
           .single();
 
         if (!error && data) {
-          console.log(data);
           setUserStats(data);
         }
+
+        // Send user data to be stored in python server
+        const response = await fetch("http://localhost:3500/receive_info", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ content: data }),
+        });
+
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+
       };
 
       // Fetch leaderboard
