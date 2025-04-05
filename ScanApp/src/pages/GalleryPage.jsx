@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Trash2, Search, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { genSusAna } from "../components/genSusAna";
 
 const GalleryPage = () => {
     const [photos, setPhotos] = useState([]);
@@ -10,6 +11,9 @@ const GalleryPage = () => {
     const [loading, setLoading] = useState(false);
     const [dispImage, setDispImage] = useState(null);
     const [dispBrand, setDispBrand] = useState(null);
+    const [username, setUsername] = useState("username");
+    const [description, setDescription] = useState("No description available");
+    const [score, setScore] = useState(null);
 
     const navigate = useNavigate();
 
@@ -27,7 +31,20 @@ const GalleryPage = () => {
         }
     };
 
+    const fetchUserInfo = async () => {
+        try {
+            const res = await fetch("http://localhost:3500/fetch_current_user");
+            if (!res.ok) throw new Error("Failed to fetch user info");
+            const data = await res.json();
+            setUsername(data);
+
+        } catch (err) {
+            console.error("Error fetching photos:", err);
+        }
+    };
+
     useEffect(() => {
+        fetchUserInfo();
         fetchPhotos();
     }, []);
 
@@ -77,7 +94,12 @@ const GalleryPage = () => {
     
         if (!response.ok) throw new Error("Network response was not ok");
     
-        let data = await response.json();
+        const data = await response.json();
+        console.log(data.brand);
+        const pack = await genSusAna(data.brand, username);
+        console.log(pack);
+        setScore(pack.score);
+        setDescription(pack.description);
         setDispBrand(data.brand);
         setDispImage("data:image/jpeg;base64," + data.image);
         setLoading(false);
@@ -148,13 +170,14 @@ const GalleryPage = () => {
 
                     <button
                         className="text-white text-sm px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition"
-                        onClick={() => navigate("/")}
+                        onClick={() => navigate("/home")}
                     >
                         Back to Camera
                     </button>
                 </div>
             </div>
-
+            
+            {/* Popup */}
             {dispImage && (
                 <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center animate-fadeIn">
                     <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-2xl w-11/12 max-w-3xl max-h-[90vh] relative text-gray-900 dark:text-white border-2 border-zinc-700 flex flex-col">
@@ -199,12 +222,8 @@ const GalleryPage = () => {
                             </div>
 
                             <div className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
-                            <p>
-                                Our AI analyzes logos and cross-checks them against public
-                                databases of environmental and ethical reports. The most likely
-                                match is shown here. Please interpret results with care as brand
-                                recognition is ongoing research.
-                            </p>
+                            <p>Score: {score}/10</p>
+                            <p>{description}</p>
                             </div>
                         </div>
                         </div>

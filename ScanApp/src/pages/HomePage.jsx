@@ -38,9 +38,22 @@ export function HomePage() {
           .single();
 
         if (!error && data) {
-          console.log(data);
           setUserStats(data);
         }
+
+        // Send user data to be stored in python server
+        const response = await fetch("http://localhost:3500/receive_info", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ content: data }),
+        });
+
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+
       };
 
       // Fetch leaderboard
@@ -65,7 +78,7 @@ export function HomePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-green-100">
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-24">
         {userStats && (
           <UserStats
             sustainabilityIndex={userStats.sustainability_index}

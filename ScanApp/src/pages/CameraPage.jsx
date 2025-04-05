@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import Webcam from "react-webcam";
 import { useNavigate } from "react-router-dom";
 import { MdFlipCameraAndroid } from "react-icons/md";
@@ -93,7 +93,7 @@ const CameraPage = () => {
                 </button>
                 <button
                     onClick={captureImage}
-                    className="w-18 h-18 rounded-full bg-gray-500/50 active:scale-90 transition-all border border-gray-400 border-3"
+                    className="w-18 h-18 rounded-full bg-gray-500/50 active:scale-90 transition-all border-gray-400 border-3"
                 />
                 <button className="absolute right-[15%] text-white opacity-70 hover:opacity-100" onClick={toggleFacingMode}>
                     <MdFlipCameraAndroid size={30} />

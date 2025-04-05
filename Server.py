@@ -21,11 +21,27 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-photo_memo = []
-
+photo_memo = {}
+current_user = ""
+users_info = {}
 class StringRequest(BaseModel):
     content: str
+    
+class DictRequest(BaseModel):
+    content: dict
 
+@app.post("/receive_info")
+async def receiveDict(req: DictRequest):
+    d = req.content
+    users_info[d['username']] = {
+        "id": d['id'],
+    }
+    global current_user
+    current_user = d['username']
+    if current_user not in photo_memo:
+        photo_memo[current_user] = []
+    print(f'{d['username']} signed in')
+    return {"processed_img": "GOT DATA"}
 
 @app.post("/invert_image")
 async def invertImage(req: StringRequest):
@@ -95,18 +111,24 @@ async def saveImage(req: StringRequest):
     img_bgr = cv2.cvtColor(img_array, cv2.COLOR_RGB2BGR)
     
     img_base64 = base64.b64encode(cv2.imencode('.jpg', img_bgr)[1]).decode('utf-8')
-    photo_memo.append(img_base64)
+    global current_user
+    photo_memo[current_user].append(img_base64)
     return {"processed_img": "RESPONSE"}
 
 @app.get("/fetch_img")
 async def fetchImage():
-    return photo_memo
+    return photo_memo[current_user]
+
+@app.get("/fetch_current_user")
+async def fetchImage():
+    global current_user
+    return current_user
 
 @app.delete("/delete_img")
 async def fetchImage(req: StringRequest):
     idx = int(base64.b64decode(req.content))
     print("Deleted", idx)
-    photo_memo.pop(idx)
+    photo_memo[current_user].pop(idx)
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=3500)
