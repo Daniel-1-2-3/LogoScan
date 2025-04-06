@@ -19,7 +19,7 @@ const GalleryPage = () => {
 
     const fetchPhotos = async () => {
         try {
-            const res = await fetch("https://e570-24-51-233-5.ngrok-free.app/fetch_img");
+            const res = await fetch("http://localhost:3500/fetch_img");
             if (!res.ok) throw new Error("Failed to fetch photo memo");
 
             const data = await res.json();
@@ -33,7 +33,7 @@ const GalleryPage = () => {
 
     const fetchUserInfo = async () => {
         try {
-            const res = await fetch("https://e570-24-51-233-5.ngrok-free.app/fetch_current_user");
+            const res = await fetch("http://localhost:3500/fetch_current_user");
             if (!res.ok) throw new Error("Failed to fetch user info");
             const data = await res.json();
             console.log(data);
@@ -52,7 +52,7 @@ const GalleryPage = () => {
     const deleteImg = async () => {
         const base64Idx = btoa(idx.toString());
         try {
-            const response = await fetch("https://e570-24-51-233-5.ngrok-free.app/delete_img", {
+            const response = await fetch("http://localhost:3500/delete_img", {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
@@ -85,7 +85,7 @@ const GalleryPage = () => {
         setLoading(true);
         const frame = photos[idx];
         const base64String = frame.split(",")[1];
-        const response = await fetch("https://e570-24-51-233-5.ngrok-free.app/process_image", {
+        const response = await fetch("http://localhost:3500/process_image", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

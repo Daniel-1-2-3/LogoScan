@@ -42,7 +42,7 @@ export function HomePage() {
         }
 
         // Send user data to be stored in python server
-        const response = await fetch("https://e570-24-51-233-5.ngrok-free.app/receive_info", {
+        const response = await fetch("http://localhost:3500/receive_info", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
